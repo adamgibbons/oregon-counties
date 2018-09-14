@@ -69,7 +69,7 @@ function displayPopover ({ target, clientX, clientY }, awards) {
 
   const awardsCount = countAwardsByCounty(id, portfolio, awards)
 
-  $popover.find('[data-county]').text(id)
+  $popover.find('[data-county]').text(id.replace('_', ' '))
   $popover.find('[data-awards-county]').text(awardsCount)
 }
 
