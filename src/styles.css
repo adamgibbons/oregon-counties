@@ -1,5 +1,5 @@
 body {
-  background-color: #222;
+  background-color: white;
   font-size: 18px;
   line-height: 24px;
   font-family: 'helvetica neue';
@@ -12,16 +12,21 @@ nav {
 }
 
 nav li {
-  display: inline;
-  background-color: #ccc;
-  color: white;
+  display: inline-block;
+  background-color: #D7D7D7;
+  color: #4B4B4B;
   padding: 1em;
   transition: all 0.2s;
+  margin: 1em .33em;
 }
 
-nav li:hover,
+nav li:hover {
+  background-color: #EEE;
+}
+
 nav li.active {
-  background-color: #eee;
+  background-color: #474747;
+  color: white;
 }
 
 .oregon-map {
@@ -33,6 +38,24 @@ nav li.active {
 .oregon-map svg {
   width: 100%;
   height: auto;
+}
+
+.oregon-map svg path {
+  fill-opacity: 1;
+  stroke: white;
+  stroke-width: 250;
+  stroke-linejoin: round;
+  stroke-opacity: 1;
+  fill: #D7D7D7;
+  transition: fill 0.3s linear;
+}
+
+.oregon-map svg path.active:hover {
+  fill: #666;
+}
+
+.oregon-map svg path.active {
+  fill: #474747;
   cursor: pointer;
 }
 
@@ -42,10 +65,18 @@ nav li.active {
   min-height: 100px;
   min-width: 200px;
   background-color: white;
-  transition: all .4s ease-in-out;
+  transition: opacity .2s;
   opacity: 0;
   text-align: center;
   padding: 1em;
-  background-color: #333;
+  background-color: black;
   color: white;
+  border-radius: 5px;
+}
+
+.popover .close {
+  position: absolute;
+  right: .66em;
+  top: .33em;
+  cursor: pointer;
 }

@@ -1,4 +1,9 @@
-// on load, select first category-button
+// on load, select first category-button?
+
+const DIMENSIONS = {
+  HEIGHT: 100,
+  WIDTH: 200
+}
 
 const COLORS = {
   INACTIVE: '#b9b9b9',
@@ -8,31 +13,12 @@ const COLORS = {
 const $categories = $('nav').find('[data-click]')
 const $counties = $('svg').find('path')
 const $popover = $('#popover')
+const $popoverCloseButton = $('#popover').find('.close')
 
 $.get('./data/awards-db.json', function (awards) {
   $categories.click(highlightCountiesInPortfolio)
-
-  $counties.mouseover(displayPopover)
-
-  function displayPopover ({ target, clientX, clientY }) {
-    // clearPopover
-    const { id } = target 
-    $popover.css({
-      top: clientY,
-      left: clientX,
-      opacity: 1
-    }).find('[data-county]').text(id)
-
-  }
-
-  function clearMap () {
-    $('svg path').css('fill', COLORS.INACTIVE)
-  }
-
-  function highlightButton (e) {
-    $categories.removeClass('active')
-    $(e.target).addClass('active')
-  }
+  $counties.click(displayPopover)
+  $popoverCloseButton.click(closePopover)
 
   function highlightCountiesInPortfolio (e) {
     clearMap()
@@ -52,7 +38,36 @@ $.get('./data/awards-db.json', function (awards) {
     countiesList.map(function (el) {
       if (el === '#') return
 
-      $(el).css('fill', COLORS.ACTIVE)
+      $(el).addClass('active')
     })
   }
 })
+
+function closePopover () {
+  $popover.css({
+    opacity: 0,
+    'z-index': '-1'
+  })
+}
+
+function displayPopover ({ target, clientX, clientY }) {
+  if (!$(target).hasClass('active')) return
+
+  const { id } = target 
+
+  $popover.css({
+    top: clientY - DIMENSIONS.HEIGHT / 2,
+    left: clientX - DIMENSIONS.WIDTH / 2,
+    opacity: 1,
+    'z-index': 1
+  }).find('[data-county]').text(id)
+}
+
+function clearMap () {
+  $counties.removeClass('active')
+}
+
+function highlightButton ({ target }) {
+  $categories.removeClass('active')
+  $(target).addClass('active')
+}
