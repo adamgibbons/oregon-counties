@@ -17,7 +17,11 @@ const $popoverCloseButton = $('#popover').find('.close')
 
 $.get('./data/awards-db.json', function (awards) {
   $categories.click(highlightCountiesInPortfolio)
-  $counties.click(displayPopover)
+
+  $counties.click(function (e) {
+    displayPopover(e, awards)
+  })
+
   $popoverCloseButton.click(closePopover)
 
   function highlightCountiesInPortfolio (e) {
@@ -50,17 +54,23 @@ function closePopover () {
   })
 }
 
-function displayPopover ({ target, clientX, clientY }) {
+function displayPopover ({ target, clientX, clientY }, awards) {
   if (!$(target).hasClass('active')) return
 
-  const { id } = target 
+  const { id } = target
+  const portfolio = $categories.filter('.active').text()
 
   $popover.css({
     top: clientY - DIMENSIONS.HEIGHT / 2,
     left: clientX - DIMENSIONS.WIDTH / 2,
     opacity: 1,
     'z-index': 1
-  }).find('[data-county]').text(id)
+  })
+
+  const awardsCount = countAwardsByCounty(id, portfolio, awards)
+
+  $popover.find('[data-county]').text(id)
+  $popover.find('[data-awards-county]').text(awardsCount)
 }
 
 function clearMap () {
@@ -70,4 +80,10 @@ function clearMap () {
 function highlightButton ({ target }) {
   $categories.removeClass('active')
   $(target).addClass('active')
+}
+
+function countAwardsByCounty(id, portolio, awards) {
+  return awards.filter(function (award) {
+    return award['Recipient County'] === id.replace('_', ' ') && award.Portfolio === portolio
+  }).length
 }
