@@ -1,0 +1,51 @@
+body {
+  background-color: #222;
+  font-size: 18px;
+  line-height: 24px;
+  font-family: 'helvetica neue';
+}
+
+nav {
+  margin: 2em 0 0;
+  text-align: center;
+  cursor: pointer;
+}
+
+nav li {
+  display: inline;
+  background-color: #ccc;
+  color: white;
+  padding: 1em;
+  transition: all 0.2s;
+}
+
+nav li:hover,
+nav li.active {
+  background-color: #eee;
+}
+
+.oregon-map {
+  margin: auto;
+  max-width: 800px;
+  margin-top: 3em;
+}
+
+.oregon-map svg {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.popover {
+  display: block;
+  position: absolute;
+  min-height: 100px;
+  min-width: 200px;
+  background-color: white;
+  transition: all .4s ease-in-out;
+  opacity: 0;
+  text-align: center;
+  padding: 1em;
+  background-color: #333;
+  color: white;
+}
