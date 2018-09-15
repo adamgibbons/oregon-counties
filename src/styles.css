@@ -42,7 +42,7 @@ nav li.active {
 
 .oregon-map svg path {
   fill-opacity: 1;
-  stroke: white;
+   /*stroke: white;*/
   stroke-width: 250;
   stroke-linejoin: round;
   stroke-opacity: 1;

@@ -1,5 +1,3 @@
-// on load, select first category-button?
-
 const DIMENSIONS = {
   HEIGHT: 100,
   WIDTH: 200
@@ -25,6 +23,7 @@ $.get('./data/awards-db.json', function (awards) {
   $popoverCloseButton.click(closePopover)
 
   function highlightCountiesInPortfolio (e) {
+    closePopover()
     clearMap()
     highlightButton(e)
 
@@ -50,7 +49,8 @@ $.get('./data/awards-db.json', function (awards) {
 function closePopover () {
   $popover.css({
     opacity: 0,
-    'z-index': '-1'
+    left: '-1000px',
+    top: '-1000px'
   })
 }
 
@@ -63,14 +63,15 @@ function displayPopover ({ target, clientX, clientY }, awards) {
   $popover.css({
     top: clientY - DIMENSIONS.HEIGHT / 2,
     left: clientX - DIMENSIONS.WIDTH / 2,
-    opacity: 1,
-    'z-index': 1
+    opacity: 1
   })
 
   const awardsCount = countAwardsByCounty(id, portfolio, awards)
+  const awardsDollars = getSumTotalOfAwardsByCounty(id, portfolio, awards)
 
   $popover.find('[data-county]').text(id.replace('_', ' '))
-  $popover.find('[data-awards-county]').text(awardsCount)
+  $popover.find('[data-awards-count]').text(awardsCount)
+  $popover.find('[data-awards-dollars]').text(awardsDollars)
 }
 
 function clearMap () {
@@ -86,4 +87,18 @@ function countAwardsByCounty(id, portolio, awards) {
   return awards.filter(function (award) {
     return award['Recipient County'] === id.replace('_', ' ') && award.Portfolio === portolio
   }).length
+}
+
+function getSumTotalOfAwardsByCounty(id, portolio, awards) {
+  return awards.filter(function (award) {
+    return award['Recipient County'] === id.replace('_', ' ') && award.Portfolio === portolio
+  }).map((award) => {
+    return parseInt(
+      award['Award Amount']
+        .replace('$', '')
+        .replace(/,/g, '')
+    )
+  }).reduce((a, b) => {
+    return a + b
+  }).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
