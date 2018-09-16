@@ -143,6 +143,11 @@ nav li.active {
   left: 100px;
 }
 
+.accordion .leaf {
+  background-color: red;
+  margin-bottom: 1em;
+}
+
 
 @media only screen and (max-width: 600px) {
   nav {

@@ -56,6 +56,8 @@ $.get('./data/awards-db.json', function (awards) {
       if (el === '#') return
 
       $(el).addClass('active')
+
+      var $leaf = $('#accordion').append('<div class="leaf">' + el + '</div>')
     })
   }
 })
@@ -105,17 +107,14 @@ function countAwardsByCounty(id, portolio, awards) {
 
 function getSumTotalOfAwardsByCounty(id, portolio, awards) {
   return awards.filter(function (award) {
-    console.log(award)
     return award['Recipient County'] === id.replace('_', ' ') && award.Portfolio === portolio
   }).map((award) => {
-    // console.log(award)
     return parseInt(
       award['Award Amount']
         .replace('$', '')
         .replace(/,/g, '')
     )
   }).reduce((a, b) => {
-    console.log(a, b)
     return a + b
   }, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
