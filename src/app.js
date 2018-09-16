@@ -73,16 +73,20 @@ function toggleAccordionNode (e, portfolio, awards) {
 
   if ($node.hasClass('expanded')) {
     $node.removeClass('expanded')
+    $node.find('[data-awards-count], [data-awards-dollars]').remove()
+    return
   } else {
-    $accordion.find('.leaf').removeClass('expanded')
+    $accordion
+      .find('.leaf').removeClass('expanded')
+      .find('[data-awards-count], [data-awards-dollars]').remove()
     $node.addClass('expanded')
   }
 
   const awardsCount = countAwardsByCounty($node.text(), portfolio, awards)
   const awardsDollars = getSumTotalOfAwardsByCounty($node.text(), portfolio, awards)
 
-  $node.append('<div>' + 'Awards:' + awardsCount + '</div>')
-  $node.append('<div>' + 'Sum Total of Awards: $' + awardsDollars + '</div>')
+  $node.append('<div data-awards-count>' + 'Awards:' + awardsCount + '</div>')
+  $node.append('<div data-awards-dollars>' + 'Sum Total of Awards: $' + awardsDollars + '</div>')
 }
 
 
