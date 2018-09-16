@@ -1,6 +1,6 @@
 body {
   background-color: white;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
   font-family: 'helvetica neue';
 }
@@ -62,8 +62,7 @@ nav li.active {
 .popover {
   display: block;
   position: absolute;
-  min-height: 100px;
-  min-width: 200px;
+  min-width: 300px;
   background-color: white;
   transition: opacity .2s;
   opacity: 0;
@@ -71,7 +70,42 @@ nav li.active {
   padding: 1em;
   background-color: black;
   color: white;
-  border-radius: 5px;
+  border-radius: 8px;
+}
+
+.popover-row {
+  display: block;
+  padding: 0 1em;
+  margin: 0;
+}
+
+.popover-col {
+  display: inline-block;
+  padding: 1em;
+  vertical-align: middle;
+}
+
+.popover-col-divider {
+  height: 5em;
+  border-left: 1px solid #aaa;
+  width: 0;
+  padding: 0;
+  margin: 1.5em 1em;
+}
+
+.popover-label {
+  font-size: .8em;
+  font-weight: 200;
+}
+
+.popover-county {
+  text-transform: uppercase;
+}
+
+.popover-number {
+  font-size: 2.33em;
+  font-weight: 300;
+  margin-bottom: .2em;
 }
 
 .popover .close {
@@ -79,4 +113,31 @@ nav li.active {
   right: .66em;
   top: .33em;
   cursor: pointer;
+}
+
+.popover-button {
+  text-transform: uppercase;
+  color: black;
+  background-color: white;
+  padding: .8em 2em;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: .8em;
+}
+
+.popover a {
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: .8em;
+}
+
+.popover a:hover {
+  text-decoration: underline;
+}
+
+.popover.dev {
+  opacity: 1;
+  top: 100px;
+  left: 100px;
 }
