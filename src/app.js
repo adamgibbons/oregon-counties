@@ -23,9 +23,23 @@ $.get('./data/awards-db.json', function (awards) {
   $popoverCloseButton.click(closePopover)
 
   function highlightCountiesInPortfolio (e) {
+    e.preventDefault()
     closePopover()
     clearMap()
-    highlightButton(e)
+
+    if ($('nav')[0].scrollWidth < 600) {
+      if ($(e.target).hasClass('active')) {
+        // expand
+        $('nav').addClass('expanded hot')
+      } else if ($('nav').hasClass('expanded')) {
+        highlightButton(e)
+        $('nav').removeClass('expanded hot')
+      } else {
+        $('nav').addClass('expanded')
+      }
+    } else {
+      highlightButton(e)
+    }
 
     const portfolio = $(e.target).text()
     const result = awards.filter(function (award) {
@@ -91,14 +105,17 @@ function countAwardsByCounty(id, portolio, awards) {
 
 function getSumTotalOfAwardsByCounty(id, portolio, awards) {
   return awards.filter(function (award) {
+    console.log(award)
     return award['Recipient County'] === id.replace('_', ' ') && award.Portfolio === portolio
   }).map((award) => {
+    // console.log(award)
     return parseInt(
       award['Award Amount']
         .replace('$', '')
         .replace(/,/g, '')
     )
   }).reduce((a, b) => {
+    console.log(a, b)
     return a + b
-  }).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }

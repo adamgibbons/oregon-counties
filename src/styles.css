@@ -142,3 +142,50 @@ nav li.active {
   top: 100px;
   left: 100px;
 }
+
+
+@media only screen and (max-width: 600px) {
+  nav {
+    height: 4em;
+    overflow: hidden;
+    background-color: #474747;
+    padding: 0em 1em;
+    position: relative;
+  }
+
+  nav.expanded {
+    height: unset;
+  }
+
+  nav.hot {
+    padding-top: 4em;
+  }
+
+  nav li {
+    display: block;
+    margin: 0;
+    padding: 1em 3em;
+    border-bottom: 1px solid white;
+    background-color: transparent;
+    color: white;
+  }
+
+  nav li:hover {
+    background-color: #474747;
+  }
+
+  nav li.active {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    width: fill-available;
+    margin: 0 1em;
+  }
+
+  .popover {
+    display: none;
+  }
+}
