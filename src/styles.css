@@ -143,9 +143,18 @@ nav li.active {
   left: 100px;
 }
 
+.accordion {
+  margin: 1em 0;
+}
+
 .accordion .leaf {
-  background-color: red;
-  margin-bottom: 1em;
+  margin: 0;
+  padding: 1em 0;
+  border-top: 1px solid black;
+}
+
+.accordion .leaf.expanded {
+  color: red;
 }
 
 

@@ -59,18 +59,30 @@ $.get('./data/awards-db.json', function (awards) {
 
       $(el).addClass('active')
 
-
-      var $leaf = $accordion
-        .append('<div class="leaf">' + el + '</div>')
+      $accordion.append('<div class="leaf">' + el.replace('#', '') + '</div>')
     })
 
-    $accordion.find('.leaf').click(toggleAccordionNode)
+    $accordion.find('.leaf').click(function (e) {
+      toggleAccordionNode(e, portfolio, awards)
+    })
   }
 })
 
-function toggleAccordionNode (e) {
-  // e.preventDefault()
-  console.log(e)
+function toggleAccordionNode (e, portfolio, awards) {
+  const $node = $(e.target)
+
+  if ($node.hasClass('expanded')) {
+    $node.removeClass('expanded')
+  } else {
+    $accordion.find('.leaf').removeClass('expanded')
+    $node.addClass('expanded')
+  }
+
+  const awardsCount = countAwardsByCounty($node.text(), portfolio, awards)
+  const awardsDollars = getSumTotalOfAwardsByCounty($node.text(), portfolio, awards)
+
+  $node.append('<div>' + 'Awards:' + awardsCount + '</div>')
+  $node.append('<div>' + 'Sum Total of Awards: $' + awardsDollars + '</div>')
 }
 
 
