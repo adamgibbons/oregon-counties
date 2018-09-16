@@ -79,10 +79,14 @@ function toggleAccordionNode (e, portfolio, awards) {
 
   if ($node.hasClass('expanded')) {
     $node.removeClass('expanded')
-    return
+    $node.find('.accordion-row').slideUp()
   } else {
-    $accordion.find('.leaf').removeClass('expanded')
+    $accordion.find('.expanded').removeClass('expanded')
+    $accordion.find('.accordion-row').slideUp()
+
     $node.addClass('expanded')
+    $node.find('.accordion-row').slideDown()
+
     const awardsCount = countAwardsByCounty(countyName, portfolio, awards)
     const awardsDollars = getSumTotalOfAwardsByCounty(countyName, portfolio, awards)
 
