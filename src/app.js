@@ -12,6 +12,7 @@ const $categories = $('nav').find('[data-click]')
 const $counties = $('svg').find('path')
 const $popover = $('#popover')
 const $popoverCloseButton = $('#popover').find('.close')
+const $accordion = $('#accordion')
 
 $.get('./data/awards-db.json', function (awards) {
   $categories.click(highlightCountiesInPortfolio)
@@ -52,15 +53,26 @@ $.get('./data/awards-db.json', function (awards) {
       return `#${county.replace(' ', '_')}`
     })
 
+    $accordion.empty()
     countiesList.map(function (el) {
       if (el === '#') return
 
       $(el).addClass('active')
 
-      var $leaf = $('#accordion').append('<div class="leaf">' + el + '</div>')
+
+      var $leaf = $accordion
+        .append('<div class="leaf">' + el + '</div>')
     })
+
+    $accordion.find('.leaf').click(toggleAccordionNode)
   }
 })
+
+function toggleAccordionNode (e) {
+  // e.preventDefault()
+  console.log(e)
+}
+
 
 function closePopover () {
   $popover.css({
