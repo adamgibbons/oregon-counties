@@ -13,6 +13,7 @@ const $counties = $('svg').find('path')
 const $popover = $('#popover')
 const $popoverCloseButton = $('#popover').find('.close')
 const $accordion = $('#accordion')
+const $accordionNode = $accordion.find('.leaf').clone().remove()
 
 $.get('./data/awards-db.json', function (awards) {
   $categories.click(highlightCountiesInPortfolio)
@@ -53,13 +54,17 @@ $.get('./data/awards-db.json', function (awards) {
       return `#${county.replace(' ', '_')}`
     })
 
+    // var $accordionNode = $accordion.find('.leaf').clone()
     $accordion.empty()
+
     countiesList.map(function (el) {
       if (el === '#') return
 
       $(el).addClass('active')
 
-      $accordion.append('<div class="leaf">' + el.replace('#', '') + '</div>')
+      
+      $accordionNode.clone().appendTo($accordion)
+        .find('[data-county-title]').text(el.replace('#', ''))
     })
 
     $accordion.find('.leaf').click(function (e) {
@@ -69,24 +74,21 @@ $.get('./data/awards-db.json', function (awards) {
 })
 
 function toggleAccordionNode (e, portfolio, awards) {
-  const $node = $(e.target)
+  const $node = $(e.target).closest('.leaf')
+  const countyName = $node.find('[data-county-title]').text()
 
   if ($node.hasClass('expanded')) {
     $node.removeClass('expanded')
-    $node.find('[data-awards-count], [data-awards-dollars]').remove()
     return
   } else {
-    $accordion
-      .find('.leaf').removeClass('expanded')
-      .find('[data-awards-count], [data-awards-dollars]').remove()
+    $accordion.find('.leaf').removeClass('expanded')
     $node.addClass('expanded')
+    const awardsCount = countAwardsByCounty(countyName, portfolio, awards)
+    const awardsDollars = getSumTotalOfAwardsByCounty(countyName, portfolio, awards)
+
+    $node.find('[data-awards-count]').text(awardsCount)
+    $node.find('[data-awards-dollars]').text(awardsDollars)
   }
-
-  const awardsCount = countAwardsByCounty($node.text(), portfolio, awards)
-  const awardsDollars = getSumTotalOfAwardsByCounty($node.text(), portfolio, awards)
-
-  $node.append('<div data-awards-count>' + 'Awards:' + awardsCount + '</div>')
-  $node.append('<div data-awards-dollars>' + 'Sum Total of Awards: $' + awardsDollars + '</div>')
 }
 
 

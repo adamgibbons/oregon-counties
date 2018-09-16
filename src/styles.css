@@ -157,6 +157,15 @@ nav li.active {
   color: red;
 }
 
+.accordion-row {
+  display: block;
+}
+
+.accordion-col {
+  display: inline-block;
+  width: 49%;
+}
+
 
 @media only screen and (max-width: 600px) {
   nav {
