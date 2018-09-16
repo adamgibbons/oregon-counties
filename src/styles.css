@@ -1,6 +1,6 @@
 body {
   background-color: white;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 24px;
   font-family: 'helvetica neue';
 }
@@ -15,9 +15,10 @@ nav li {
   display: inline-block;
   background-color: #D7D7D7;
   color: #4B4B4B;
-  padding: 1em;
+  padding: 1em 2em;
   transition: all 0.2s;
   margin: 1em .33em;
+  line-height: 1.1;
 }
 
 nav li:hover {
@@ -42,7 +43,6 @@ nav li.active {
 
 .oregon-map svg path {
   fill-opacity: 1;
-   /*stroke: white;*/
   stroke-width: 250;
   stroke-linejoin: round;
   stroke-opacity: 1;
@@ -110,9 +110,10 @@ nav li.active {
 
 .popover .close {
   position: absolute;
-  right: .66em;
-  top: .33em;
+  right: 0;
+  top: -.33em;
   cursor: pointer;
+  padding: 1em;
 }
 
 .popover-button {
