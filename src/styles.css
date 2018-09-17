@@ -145,6 +145,12 @@ nav li.active {
 
 .accordion {
   margin: 1em 0;
+  display: none;
+}
+
+.accordion-title {
+  text-transform: uppercase;
+  font-weight: 900;
 }
 
 .accordion .leaf {
@@ -154,7 +160,7 @@ nav li.active {
 }
 
 .accordion .leaf.expanded {
-  color: red;
+  /*color: red;*/
 }
 
 .accordion-row {
@@ -163,11 +169,30 @@ nav li.active {
 
 .accordion-col {
   display: inline-block;
-  width: 49%;
+  width: 33%;
 }
 
+.accordion-number {
+  font-size: 1.1em;
+  margin-top: 1em;
+  font-weight: 600;
+}
+
+.accordion button {
+  border-radius: 5px;
+  background-color: #aaa;
+  color: white;
+  font-size: 1rem;
+  margin-top: 1em;
+  padding: .66em;
+  cursor: pointer;
+}
 
 @media only screen and (max-width: 600px) {
+  .accordion {
+    display: block;
+  }
+
   nav {
     height: 4em;
     overflow: hidden;
