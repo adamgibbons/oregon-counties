@@ -46,7 +46,6 @@ function highlightCountiesInPortfolio (e, awards) {
 
   if ($('nav')[0].scrollWidth < 1000) {
     if ($(e.target).hasClass('active')) {
-      // expand
       $('nav').addClass('expanded hot')
     } else if ($('nav').hasClass('expanded')) {
       highlightButton(e)

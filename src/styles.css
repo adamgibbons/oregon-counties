@@ -223,6 +223,20 @@ nav li.active {
     position: relative;
   }
 
+  nav::after {
+    content: '+';
+    color: white;
+    position: absolute;
+    font-size: 1.3em;
+    top: .5em;
+    right: 1em;
+    font-weight: 300;
+  }
+
+  nav.expanded::after {
+    display: none;
+  }
+
   nav.expanded {
     height: unset;
   }
