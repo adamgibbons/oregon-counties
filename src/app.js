@@ -16,62 +16,67 @@ const $accordion = $('#accordion')
 const $accordionNode = $accordion.find('.leaf').clone().remove()
 
 $.get('./data/awards-db.json', function (awards) {
-  $categories.click(highlightCountiesInPortfolio)
+  $categories.click(function (e) {
+    highlightCountiesInPortfolio(e, awards)
+  })
 
   $counties.click(function (e) {
     displayPopover(e, awards)
   })
 
   $popoverCloseButton.click(closePopover)
-
-  function highlightCountiesInPortfolio (e) {
-    e.preventDefault()
-    closePopover()
-    clearMap()
-
-    if ($('nav')[0].scrollWidth < 600) {
-      if ($(e.target).hasClass('active')) {
-        // expand
-        $('nav').addClass('expanded hot')
-      } else if ($('nav').hasClass('expanded')) {
-        highlightButton(e)
-        $('nav').removeClass('expanded hot')
-      } else {
-        $('nav').addClass('expanded')
-      }
-    } else {
-      highlightButton(e)
-    }
-
-    const portfolio = $(e.target).text()
-    const result = awards.filter(function (award) {
-      return award.Portfolio === portfolio
-    })
-
-    const counties = _.uniqBy(result.map(function (r) { return r['Recipient County'] }))
-
-    const countiesList = counties.map(function (county) {
-      return `#${county.replace(' ', '_')}`
-    })
-
-    // var $accordionNode = $accordion.find('.leaf').clone()
-    $accordion.empty()
-
-    countiesList.map(function (el) {
-      if (el === '#') return
-
-      $(el).addClass('active')
-
-      
-      $accordionNode.clone().appendTo($accordion)
-        .find('[data-county-title]').text(el.replace('#', ''))
-    })
-
-    $accordion.find('.leaf').click(function (e) {
-      toggleAccordionNode(e, portfolio, awards)
-    })
-  }
 })
+
+function listCountiesByPortfolio (portfolio, awards) {
+  const list = awards.filter(function (award) {
+    return award.Portfolio === portfolio
+  })
+
+  return _.uniqBy(list.map(function (r) {
+    return r['Recipient County']
+  })).map(function (county) {
+    return `#${county.replace(' ', '_')}`
+  })
+}
+
+function highlightCountiesInPortfolio (e, awards) {
+  e.preventDefault()
+  closePopover()
+  clearMap()
+
+  if ($('nav')[0].scrollWidth < 600) {
+    if ($(e.target).hasClass('active')) {
+      // expand
+      $('nav').addClass('expanded hot')
+    } else if ($('nav').hasClass('expanded')) {
+      highlightButton(e)
+      $('nav').removeClass('expanded hot')
+    } else {
+      $('nav').addClass('expanded')
+    }
+  } else {
+    highlightButton(e)
+  }
+
+  const portfolio = $(e.target).text()
+  const countiesList = listCountiesByPortfolio(portfolio, awards)
+
+  $accordion.empty()
+
+  countiesList.map(function (el) {
+    if (el === '#') return
+
+    $(el).addClass('active')
+
+    
+    $accordionNode.clone().appendTo($accordion)
+      .find('[data-county-title]').text(el.replace('#', ''))
+  })
+
+  $accordion.find('.leaf').click(function (e) {
+    toggleAccordionNode(e, portfolio, awards)
+  })
+}
 
 function toggleAccordionNode (e, portfolio, awards) {
   const $node = $(e.target).closest('.leaf')
@@ -94,7 +99,6 @@ function toggleAccordionNode (e, portfolio, awards) {
     $node.find('[data-awards-dollars]').text(awardsDollars)
   }
 }
-
 
 function closePopover () {
   $popover.css({
