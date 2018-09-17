@@ -44,7 +44,7 @@ function highlightCountiesInPortfolio (e, awards) {
   closePopover()
   clearMap()
 
-  if ($('nav')[0].scrollWidth < 600) {
+  if ($('nav')[0].scrollWidth < 1000) {
     if ($(e.target).hasClass('active')) {
       // expand
       $('nav').addClass('expanded hot')
