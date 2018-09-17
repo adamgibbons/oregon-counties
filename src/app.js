@@ -25,6 +25,12 @@ $.get('./data/awards-db.json', function (awards) {
   })
 
   $popoverCloseButton.click(closePopover)
+
+  $(document).keyup(function(e){
+    if(e.keyCode === 27) {
+      closePopover(e)
+    }
+  })
 })
 
 function listCountiesByPortfolio (portfolio, awards) {
