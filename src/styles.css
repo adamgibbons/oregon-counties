@@ -15,7 +15,7 @@ nav li {
   display: inline-block;
   background-color: #D7D7D7;
   color: #4B4B4B;
-  padding: 1em 2em;
+  padding: 1em 1.66em;
   transition: all 0.2s;
   margin: 1em .33em;
   line-height: 1.1;
@@ -206,7 +206,7 @@ nav li.active {
   cursor: pointer;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 925px) {
   .accordion {
     display: block;
   }
@@ -248,7 +248,7 @@ nav li.active {
   nav li {
     display: block;
     margin: 0;
-    padding: 1em 3em;
+    padding: 1em 2em;
     border-bottom: 1px solid white;
     background-color: transparent;
     color: white;
