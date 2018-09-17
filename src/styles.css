@@ -153,6 +153,20 @@ nav li.active {
   font-weight: 900;
 }
 
+.accordion-title::after {
+  float: right;
+  content: "\2303";
+  transition: all 0.5s;
+}
+
+.expanded .accordion-title::after {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
 .accordion .leaf {
   margin: 0;
   padding: 1em 0;
